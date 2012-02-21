@@ -15,6 +15,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Style;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -24,6 +26,10 @@ import android.view.animation.AnimationUtils;
 public class PuzzleView extends View {
    private static final String TAG = "Sudoku";
    
+   private static final String SELX = "selX";
+   private static final String SELY = "selY";
+   private static final String VIEW_STATE = "viewState";
+   private static final int ID = 42;
    
    private float width;    // width of one tile
    private float height;   // height of one tile
@@ -39,10 +45,10 @@ public class PuzzleView extends View {
       this.game = (Game) context;
       setFocusable(true);
       setFocusableInTouchMode(true);
+      
+      // ...
+      setId(ID);
    }
-   // ...
-   
-
    
    @Override
    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -131,24 +137,25 @@ public class PuzzleView extends View {
       
 
       
-      
-      // Draw the hints...
-      
-      // Pick a hint color based on #moves left
-      Paint hint = new Paint();
-      int c[] = { getResources().getColor(R.color.puzzle_hint_0),
-            getResources().getColor(R.color.puzzle_hint_1),
-            getResources().getColor(R.color.puzzle_hint_2), };
-      Rect r = new Rect();
-      for (int i = 0; i < 9; i++) {
-         for (int j = 0; j < 9; j++) {
-            int movesleft = 9 - game.getUsedTiles(i, j).length;
-            if (movesleft < c.length) {
-               getRect(i, j, r);
-               hint.setColor(c[movesleft]);
-               canvas.drawRect(r, hint);
-            }
-         }
+      if (Settings.getHints(getContext())) {
+    	  // Draw the hints...
+
+    	  // Pick a hint color based on #moves left
+    	  Paint hint = new Paint();
+    	  int c[] = { getResources().getColor(R.color.puzzle_hint_0),
+    			  getResources().getColor(R.color.puzzle_hint_1),
+    			  getResources().getColor(R.color.puzzle_hint_2), };
+    	  Rect r = new Rect();
+    	  for (int i = 0; i < 9; i++) {
+    		  for (int j = 0; j < 9; j++) {
+    			  int movesleft = 9 - game.getUsedTiles(i, j).length;
+    			  if (movesleft < c.length) {
+    				  getRect(i, j, r);
+    				  hint.setColor(c[movesleft]);
+    				  canvas.drawRect(r, hint);
+    			  }
+    		  }
+    	  }
       }
       
 
@@ -257,5 +264,23 @@ public class PuzzleView extends View {
             * width + width), (int) (y * height + height));
    }
    
+   @Override
+   protected Parcelable onSaveInstanceState() {
+	   Parcelable p = super.onSaveInstanceState();
+	   Log.d(TAG, "onsaveInstanceState");
+	   Bundle bundle = new Bundle();
+	   bundle.putInt(SELX, selX);
+	   bundle.putInt(SELY, selY);
+	   bundle.putParcelable(VIEW_STATE, p);
+	   return bundle;
+   }
    
+   @Override
+   protected void onRestoreInstanceState(Parcelable state) {
+	   Log.d(TAG, "onRestoreInstanceState");
+	   Bundle bundle = (Bundle) state;
+	   select(bundle.getInt(SELX), bundle.getInt(SELY));
+	   super.onRestoreInstanceState(bundle.getParcelable(VIEW_STATE));
+	   return;
+   }
 }

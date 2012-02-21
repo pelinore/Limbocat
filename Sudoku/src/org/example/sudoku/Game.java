@@ -32,6 +32,9 @@ public class Game extends Activity {
 
 	private PuzzleView puzzleView;
 	
+	private static final String PREF_PUZZLE = "puzzle";
+	protected static final int DIFFICULTY_CONTINUE = -1;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,13 +47,18 @@ public class Game extends Activity {
 		puzzleView = new PuzzleView(this);
 		setContentView(puzzleView);
 		puzzleView.requestFocus();
+		
+		// ...
+		// If the activity is restarted, do a continue next time
+		getIntent().putExtra(KEY_DIFFICULTY, DIFFICULTY_CONTINUE);
 	}
 
 	/** Given a dificulty level, come up with a new puzzle */
 	private int[] getPuzzle(int diff) {
 		String puz;
-		// TODO: Continue last game
 		switch (diff) {
+		case DIFFICULTY_CONTINUE:
+			puz = getPreferences(MODE_PRIVATE).getString(PREF_PUZZLE, easyPuzzle);
 		case DIFFICULTY_HARD:
 			puz = hardPuzzle;
 			break;
@@ -202,7 +210,11 @@ public class Game extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		Log.d(TAG, "onPause");
 		Music.stop(this);
+		
+		// Save the current puzzle
+		getPreferences(MODE_PRIVATE).edit().putString(PREF_PUZZLE, toPuzzleString(puzzle)).commit();
 	}
 
 }
