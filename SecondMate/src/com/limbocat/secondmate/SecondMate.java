@@ -23,6 +23,8 @@ public class SecondMate extends Activity implements OnClickListener {
         exitButton.setOnClickListener(this);
         View nmeaFilterButton = this.findViewById(R.id.nmea_filter_button);
         nmeaFilterButton.setOnClickListener(this);
+        View viewNmeaLogButton = this.findViewById(R.id.view_nmealog_button);
+        viewNmeaLogButton.setOnClickListener(this);
         
         Log.d(TAG, "SecondMate: NMEA Prefix: " + Settings.getNmeaPrefix(getBaseContext()));
         
@@ -58,6 +60,9 @@ public class SecondMate extends Activity implements OnClickListener {
     			Log.d(TAG, "onClickFilterButton: nmeaFilter: " + s);
     		}
     		break;
+    	case R.id.view_nmealog_button:
+    		Intent i = new Intent(this,NmeaLog.class);
+    		startActivity(i);
     	}
     }
 }

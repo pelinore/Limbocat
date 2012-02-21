@@ -25,5 +25,9 @@
     </string-array>
     <string name="exit_label">Exit</string>
     <string name="nmea_filter_label">Get NMEA Sentence Filter</string>
+    <string name="nmea_log_title">NMEA Log</string>
+    <string name="nmealog_speakbutton_label">Speak To Me</string>
+    <string name="nmealog_edittext_label">This is me talking</string>
+    <string name="view_nmealog_button_label">View NMEA Log</string>
 
 </resources>

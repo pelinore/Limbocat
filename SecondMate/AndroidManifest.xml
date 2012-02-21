@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:label="@string/settings_title" android:name=".Settings"></activity>
+        <activity android:name=".NmeaLog"></activity>
     </application>
 
 </manifest>
