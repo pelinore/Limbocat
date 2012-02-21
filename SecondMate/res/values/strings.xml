@@ -3,5 +3,27 @@
 
     <string name="hello">Hello World, SecondMate!</string>
     <string name="app_name">SecondMate</string>
+    <string name="main_title">SecondMate</string>
+    <string name="settings_label">Settings&#8230;</string>
+    <string name="settings_title">SecondMate Settings</string>
+    <string name="settings_shortcut">s</string>
+    <string name="settings_nmea_title">NMEA Settings</string>
+    <string name="settings_nmea_summary">Configures NMEA parser settings</string>
+    <string name="settings_nmea_prefix_title">NMEA Prefix</string>
+    <string name="settings_nmea_prefix_summary">NMEA Sentence Prefix</string>
+    <string name="nmea_hdm_title">HDM</string>
+    <string name="nmea_hdm_summary">Heading Magnetic</string>
+    <string name="nmea_gll_title">GLL</string>
+    <string name="nmea_gll_summary">Geographic Position Latitude/Longitude</string>
+    <string name="nmea_dbt_title">DBT</string>
+    <string name="nmea_dbt_summary">Depth below transducer</string>
+    <string name="settings_nmea_sentences_title">NMEA Sentences</string>
+    <string name="settings_nmea_sentences_summary">NMEA sentences which are enabled in the filter</string>
+    <string-array name="nmea_sentences_filter">
+        <item >MDM</item>
+        <item >DBT</item>
+    </string-array>
+    <string name="exit_label">Exit</string>
+    <string name="nmea_filter_label">Get NMEA Sentence Filter</string>
 
 </resources>

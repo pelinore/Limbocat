@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="nmea"
+        android:summary="@string/settings_nmea_summary"
+        android:title="@string/settings_nmea_title" >
+        <EditTextPreference
+            android:defaultValue="II"
+            android:key="nmea_prefix"
+            android:summary="@string/settings_nmea_prefix_summary"
+            android:title="@string/settings_nmea_prefix_title" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="nmea_sentences"
+        android:summary="@string/settings_nmea_sentences_summary"
+        android:title="@string/settings_nmea_sentences_title">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="nmea_hdm"
+            android:summary="@string/nmea_hdm_summary"
+            android:title="@string/nmea_hdm_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="nmea_gll"
+            android:summary="@string/nmea_gll_summary"
+            android:title="@string/nmea_gll_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="nmea_dbt"
+            android:summary="@string/nmea_dbt_summary"
+            android:title="@string/nmea_dbt_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
