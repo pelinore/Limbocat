@@ -10,6 +10,7 @@ public class StringParsers
 
   public static double parseVHW(String s)
   {
+	// VHW is Water Speed and Heading
     /* Structure is 
      *  $aaVHW,x.x,T,x.x,M,x.x,N,x.x,K*hh(CR)(LF)
      *         |     |     |     |
@@ -40,6 +41,7 @@ public class StringParsers
 
   public static Wind parseMWV(String s)
   {
+	// MWV is Wind Speed and Angle
     /* Structure is 
      *  $aaMWV,x.x,a,x.x,a,A*hh
      *         |   | |   | |
@@ -79,6 +81,7 @@ public class StringParsers
   
   public static GeoPos parseGLL(String s)
   {
+	// GLL is Geographic Position Latitude/Longitude
     /* Structure is 
      *  $aaGLL,llll.ll,a,gggg.gg,a,hhmmss.ss,A*hh
      *         |       | |       | |         |
@@ -89,7 +92,7 @@ public class StringParsers
      *         |       Lat sign :N/S
      *         Latitude
      */
-    String str = "";
+    //String str = "";
     GeoPos ll = null;
     try
     {
@@ -137,6 +140,7 @@ public class StringParsers
 
   public static int parseHDM(String s)
   {
+	// HDM is Heading Magnetic
     /* Structure is 
      *  $aaHDG,xxx,M*hh(CR)(LF)
      *         |   |   
@@ -167,6 +171,22 @@ public class StringParsers
 
   public static String parseRMC(String data)
   {
+	// RMC is Recommended Minimum Navigation Information
+	    /* Structure is 
+         *  $GPRMC,004007,A,3748.410,N,12226.632,W,000.0,360.0,130102,015.7,E*6F 
+	     *         |      | |        | |         | |     |     |      |     |
+	     *         |      | |        | |         | |     |     |      |     Checksum
+	     *         |      | |        | |         | |     |     |     Magnetic Variation
+	     *         |      | |        | |         | |     |     Date, ddmmyy
+	     *         |      | |        | |         | |     Track made good, degrees true
+	     *         |      | |        | |         | Speed over ground, knots
+	     *         |      | |        | |         E or W
+	     *         |      | |        | Longitude
+	     *         |      | |        N or S
+	     *         |      | Latitude
+	     *         |      Status, V=Navigation receiver warning A=Valid
+	     *         UTC Time   
+	     */
     String computed = "";
     String lat = "", latSgn = "", lon = "", lonSgn = "";
     String nmeaKey = "";
@@ -175,7 +195,6 @@ public class StringParsers
     { return ""; }
     if (nmeaKey.equals("RMC"))
     {
-   /* $GPRMC,004007,A,3748.410,N,12226.632,W,000.0,360.0,130102,015.7,E*6F */
       if (data.indexOf(",A,") > -1)
       {  // That's what we're interested in.
         // Example : [$GPRMC,004007,A,3748.410,N,12226.632,W,000.0,360.0,130102,015.7,E*6F]
@@ -240,6 +259,7 @@ public class StringParsers
   
   public static float parseDBT(String s, short unit)
   {
+	// DBT is Depth below transducer
     /* Structure is 
      *  $aaDBT,011.0,f,03.3,M,01.8,F*18(CR)(LF)
      *         |     | |    | |    |

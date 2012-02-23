@@ -9,28 +9,47 @@ import java.util.EventObject;
  */
 public class NMEAEvent extends EventObject 
 {
-  private String content = "";
+	private String content = "";
+	private String type = "";
 
-  /**
-   * To be used for the stop statement
-   */
-  public NMEAEvent(Object source)
-  {
-    super(source);
-  }
-  /**
-   * To be used for the DataRead and DataDetected events
-   */
-  public NMEAEvent(Object source, String s)
-  {
-    super(source);
-    content = s;
-  }
-  /**
-   * Once DataRead or DataDetected has been trapped, use this method to 
-   * get the concerned data String.
-   * @return the concerned data, as a String
-   */
-  public String getContent()
-  { return this.content; }
+	/**
+	 * To be used for the stop statement
+	 */
+	public NMEAEvent(Object source)
+	{
+		super(source);
+	}
+	/**
+	 * To be used for the DataRead and DataDetected events
+	 */
+	public NMEAEvent(Object source, String s)
+	{
+		super(source);
+		setContent(s);
+		setType(s);
+	}
+	/**
+	 * Once DataRead or DataDetected has been trapped, use this method to 
+	 * get the concerned data String.
+	 * @return the concerned data, as a String
+	 */
+	public String getContent()
+	{ return this.content; }
+
+	private void setContent(String content)
+	{
+		this.content = content;
+	}
+	/**
+	 * 
+	 * @return the NMEA sentence type as a string
+	 */
+	public String getType() {
+		return type;
+	}
+	private void setType(String type) {
+		try {this.type = type.substring(3, 6).toUpperCase();}
+		catch (Exception e)
+		{System.err.println(e);} 
+	}
 }
