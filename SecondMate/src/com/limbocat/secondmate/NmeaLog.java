@@ -77,4 +77,9 @@ public class NmeaLog extends Activity implements OnInitListener, OnClickListener
 		}
 	}
 
+	@Override
+	public void finish() {
+		tts.shutdown();
+		super.finish();
+	}
 }
